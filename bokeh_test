@@ -35,3 +35,57 @@ p.add_tile(tuile)
 # Affichage de la figure
 ​
 show(p)
+
+from bokeh.tile_providers import get_provider
+from bokeh.models import ColumnDataSource, LabelSet
+​
+source = ColumnDataSource(df)
+​
+# Création de la tuile CARTODBPOSITRON à partir de get_provider
+​
+tuile = get_provider('CARTODBPOSITRON')
+​
+# Instanciation d'une figure et ajout de tuile
+​
+p = figure(x_range = (-1000000, 7000000), # étendue de l'axe des abscisses
+           y_range = (-7000000, 9000000), # étendue de l'axe des ordonnées
+           x_axis_type = 'mercator',      # type de l'axe, ici projection mercator qui sert à se repérer sur une 
+                                          # carte plane de la Terre
+           y_axis_type = 'mercator')      # // 
+​
+# Ajout de la tuile à la figure
+​
+p.add_tile(tuile)                     
+​
+# Instanciation d'un nuage de points en forme de cercle
+​
+p.circle(x = 'lng',           # abscisses
+         y = 'lat',           # ordonnées
+         fill_color = 'blue', # couleur de remplissage des cercles
+         size = 10,           # taille des cercles
+         source = source)     # source des données
+​
+# Instanciation des labels
+​
+labels = LabelSet(x = 'lng',              # abscisses
+                  y = 'lat',              # ordonnées
+                  text = 'location_name', # texte à afficher
+                  x_offset = 5,           # décalage sur l'axe des abscisses du label
+                  y_offset = 5,           # décalage sur l'axe des ordonnées du label
+                  source = source)        # source des données
+​
+# Ajout des labels à la figure p
+​
+p.add_layout(labels)              
+​
+# Affichage de la figure
+​
+show(p)
+
+
+
+
+
+
+
+
