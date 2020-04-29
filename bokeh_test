@@ -11,3 +11,27 @@ p = figure(x_range = (-1000000, 7000000),
 p.add_tile(tuile)
 
 show(p)
+
+
+
+from bokeh.tile_providers import get_provider
+​
+# Création de la tuile CARTODBPOSITRON à partir de get_provider
+​
+tuile = get_provider('CARTODBPOSITRON')
+​
+# Instanciation d'une figure
+​
+p = figure(x_range = (-1000000, 7000000), # étendue de l'axe des abscisses
+           y_range = (-7000000, 9000000), # étendue de l'axe des ordonnées
+           x_axis_type = 'mercator',      # Précision du type de l'axis, ici projection mercator qui sert à se repérer sur une 
+                                          # carte plane de la Terre
+           y_axis_type = 'mercator')      # // 
+​
+# Ajout de la tuile à la figure
+​
+p.add_tile(tuile)                   
+​
+# Affichage de la figure
+​
+show(p)
